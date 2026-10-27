@@ -1,36 +1,21 @@
-def validate_order(order_id, amount, payment_done):
-    if order_id <= 0:
-        return False
+orders = [
+    {"order_id": 101, "customer": " rahul ", "amount": "500", "date": "2026-10-20"},
+    {"order_id": 102, "customer": "PRIYA", "amount": "800", "date": "2026-10-21"},
+    {"order_id": 103, "customer": " aman ", "amount": "-100", "date": "2026-10-21"},
+    {"order_id": 104, "customer": "riya", "amount": "300", "date": "2026-10-22"},
+    {"order_id": 105, "customer": " Rahul ", "amount": "500", "date": "2026-10-22"},
+    {"order_id": 106, "customer": "", "amount": "250", "date": "2026-10-23"},
+    {"order_id": 107, "customer": "Aman", "amount": "invalid", "date": "2026-10-23"},
+    {"order_id": 108, "customer": "Neha", "amount": "1200", "date": "2026-10-24"},
+]
 
-    if amount < 0:
-        return False
 
-    if not isinstance(payment_done, bool):
-        return False
+def clean_customer_name(name):
+    return name.strip().title()
 
-    return True
+for order in orders:
+    order["customer"] = clean_customer_name(order["customer"])
 
-
-order_id = input("Enter order ID: ")
-amount = input("Enter order amount: ")
-payment_input = input("Payment completed? (yes/no): ").strip().lower()
-
-try:
-    order_id = int(order_id)
-    amount = float(amount)
-
-    if payment_input not in ("yes", "no"):
-        raise ValueError("Payment must be yes or no")
-
-    payment_done = payment_input == "yes"
-
-    if validate_order(order_id, amount, payment_done):
-        print("Order is valid")
-        print("Order ID:", order_id)
-        print("Amount:", amount)
-        print("Payment completed:", payment_done)
-    else:
-        print("Invalid order data")
-
-except ValueError:
-    print("Invalid input. Check the ID, amount and payment status.")
+print("Cleaned Customer Names:")
+for order in orders:
+    print(f"Order ID: {order['order_id']}, Customer: {order['customer']}, Amount: {order['amount']}, Date: {order['date']}")
